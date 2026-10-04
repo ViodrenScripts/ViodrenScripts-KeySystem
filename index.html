@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ViodrenScripts - Key System</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090910;color:#fff;font-family:Arial,sans-serif}
+header{padding:24px 7%;border-bottom:1px solid #242433;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:800}.logo span{color:#8b5cf6}.tag{color:#888;font-size:13px}
+main{width:min(1050px,90%);margin:45px auto}
+.hero{text-align:center;margin-bottom:32px}.hero h1{font-size:38px;margin:0 0 10px}.hero p{color:#999}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card{background:#14141d;border:1px solid #29293a;border-radius:18px;padding:22px}
+.icon{font-size:34px}.card h2{margin:10px 0 6px}.desc{color:#999;font-size:14px;min-height:38px}
+.key{display:flex;align-items:center;gap:8px;margin-top:18px}
+.key code{flex:1;background:#0b0b12;border:1px solid #303044;padding:12px;border-radius:10px;color:#cdbbff;font-size:13px}
+.copy{border:0;border-radius:10px;padding:12px 13px;background:#8b5cf6;color:#fff;font-weight:700;cursor:pointer}
+.copy:hover{background:#7749dc}
+.status{height:18px;color:#7ee787;font-size:12px;margin-top:9px}
+.note{text-align:center;color:#666;font-size:12px;margin-top:30px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Viodren<span>Scripts</span></div>
+  <div class="tag">🔑 Key System</div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>🔑 Keys dos Scripts</h1>
+    <p>Escolhe o teu script e copia a key diretamente.</p>
+  </section>
+
+  <section class="grid" id="scripts"></section>
+
+  <div class="note">Mais scripts podem ser adicionados facilmente no código.</div>
+</main>
+
+<script>
+/*
+  ============================
+  ADICIONAR OUTRO SCRIPT:
+
+  Copia um objeto como este e muda os valores:
+
+  {
+    icon: "🔥",
+    name: "Nome do Script",
+    description: "Descrição do script.",
+    key: "A-TUA-KEY"
+  }
+
+  Não precisas de alterar o resto do site.
+  ============================
+*/
+
+const scripts = [
+  {
+    icon: "🦊",
+    name: "Ride a Pet",
+    description: "Key para utilizar o script do Ride a Pet.",
+    key: "VIO-RIDE-XXXX"
+  }
+];
+
+const container = document.getElementById("scripts");
+
+scripts.forEach((script, index) => {
+  const keyId = "key-" + index;
+  const statusId = "status-" + index;
+
+  container.innerHTML += `
+    <article class="card">
+      <div class="icon">${script.icon}</div>
+      <h2>${script.name}</h2>
+      <div class="desc">${script.description}</div>
+
+      <div class="key">
+        <code id="${keyId}">${script.key}</code>
+        <button class="copy" onclick="copyKey('${keyId}','${statusId}')">Copiar</button>
+      </div>
+
+      <div class="status" id="${statusId}"></div>
+    </article>
+  `;
+});
+
+function copyKey(keyId, statusId) {
+  const key = document.getElementById(keyId).textContent;
+  navigator.clipboard.writeText(key);
+
+  const status = document.getElementById(statusId);
+  status.textContent = "✓ Key copiada!";
+}
+</script>
+</body>
+</html>
